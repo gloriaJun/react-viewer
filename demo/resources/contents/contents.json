@@ -39,6 +39,15 @@
       "bindingType": 0,
       "viewType": 0,
       "contentFormat": 0
+    },
+    {
+      "id": 7,
+      "title": "805013294",
+      "contentType": 10,
+      "bindingType": 0,
+      "viewType": 0,
+      "contentFormat": 0,
+      "hasLoadedContent": true
     }
   ]
 }
