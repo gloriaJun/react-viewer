@@ -1,6 +1,5 @@
 import { setContentsByUri, setContentsByValue } from '../../../lib';
 import { getJson } from '../utils/Api';
-import { setContentMetadata } from '../../../src';
 
 export const ViewerUiActions = {
   TOGGLE_VIEWER_SETTING: 'VIEWER_FOOTER:TOGGLE_SETTING',

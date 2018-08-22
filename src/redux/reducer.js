@@ -26,7 +26,12 @@ const setContentMetadata = (state, { contentFormat, bindingType, contentCount })
     : [initialContentCalculationsState(1)])
   .build();
 
-const setContents = (state, { type, contentFormat, bindingType, contents }) => new ImmutableObjectBuilder(state)
+const setContents = (state, {
+  type,
+  contentFormat,
+  bindingType,
+  contents,
+}) => new ImmutableObjectBuilder(state)
   .set(path.isInitContents(), true)
   .set(path.contentFormat(), contentFormat)
   .set(path.bindingType(), bindingType)
