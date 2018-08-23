@@ -38,7 +38,7 @@ const setContents = (state, {
   .set(path.contents(), contents.map((content, i) => updateObject(initialContentState(i + 1), content)))
   .set(path.isContentsLoaded(), type === actions.SET_CONTENTS_BY_VALUE)
   .set(path.contentsCalculations(), contentFormat === ContentFormat.HTML
-    ? contents.map((_, i) => initialContentCalculationsState(i))
+    ? contents.map((_, i) => initialContentCalculationsState(i + 1))
     : [initialContentCalculationsState(1)])
   .build();
 
