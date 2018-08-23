@@ -12,9 +12,9 @@ import { makeSequence, updateObject } from '../util/Util';
 import * as BrowserWrapper from '../util/BrowserWrapper';
 import { ContentFormat } from '../constants/ContentConstants';
 
-const onScrolled = state => new ImmutableObjectBuilder(state)
-  .set(path.currentOffset(), BrowserWrapper.scrollTop())
-  .build();
+// const onScrolled = state => new ImmutableObjectBuilder(state)
+//   .set(path.currentOffset(), BrowserWrapper.scrollTop())
+//   .build();
 
 const setContentMetadata = (state, { contentFormat, bindingType, contentCount }) => new ImmutableObjectBuilder(state)
   .set(path.isInitContents(), true)
@@ -92,7 +92,7 @@ export default ({
 } = {}) => {
   const setting = { ...initialSettingState(), ...customSetting };
   return createReducer({ ...initialState, setting }, {
-    [actions.SCROLLED]: onScrolled,
+    // [actions.SCROLLED]: onScrolled,
     [actions.SET_CONTENT_METADATA]: setContentMetadata,
     [actions.SET_CONTENTS_BY_VALUE]: setContents,
     [actions.SET_CONTENTS_BY_URI]: setContents,

@@ -48,6 +48,15 @@
       "viewType": 0,
       "contentFormat": 0,
       "hasLoadedContent": true
+    },
+    {
+      "id": 8,
+      "title": "AllTrueRomance (base64)",
+      "contentType": 20,
+      "bindingType": 0,
+      "viewType": 0,
+      "contentFormat": 1,
+      "hasLoadedContent": true
     }
   ]
 }

@@ -12,7 +12,7 @@ import {
   selectReaderIsCalculated,
   selectReaderContentFormat,
   selectReaderIsInitContents,
-  selectReaderContents,
+  selectReaderContents, selectReaderCurrentContentIndex,
 } from '../../redux/selector';
 import { hasIntersect } from '../Util';
 import { ContentFormat } from '../../constants/ContentConstants';
@@ -37,6 +37,7 @@ class CalculationsConnector extends BaseConnector {
   invalidate() {
     this.startOffset = { 1: 0 };
     this.dispatch(invalidateCalculations());
+    console.log('invalidate');
   }
 
   isCompleted() {
@@ -48,6 +49,7 @@ class CalculationsConnector extends BaseConnector {
       const calculatedFooter = selectReaderFooterCalculations(this.getState());
       return calculatedFooter.isCalculated;
     }
+    if (!selectReaderIsInitContents(this.getState())) return false;
     const calculatedContents = selectReaderContentsCalculations(this.getState());
     return calculatedContents[index - 1].isCalculated;
   }
@@ -132,7 +134,7 @@ class CalculationsConnector extends BaseConnector {
   }
 
   getIndexAtOffset(offset) {
-    if (!this.isCompleted()) return null;
+    // if (!this.isCompleted()) return null;
 
     const lastIndex = Object.keys(this.startOffset).length;
     for (let i = 1; i <= lastIndex; i += 1) {
@@ -149,6 +151,20 @@ class CalculationsConnector extends BaseConnector {
   isLastContent(index) {
     const calculatedContents = selectReaderContents(this.getState());
     return index === calculatedContents.length;
+  }
+
+  getCalculationTargetContents() {
+    // TODO 값 관리
+    const contentCountAtATime = 4;
+    const calculatedContents = selectReaderContentsCalculations(this.getState());
+    if (this.isCompleted()) return [];
+
+    const result = calculatedContents
+      .filter(({ isCalculated }) => !isCalculated)
+      .map(({ index }) => index)
+      .slice(0, contentCountAtATime);
+    console.log(`getCalculationTargetContents: ${result}`);
+    return result;
   }
 }
 

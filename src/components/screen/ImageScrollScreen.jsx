@@ -53,11 +53,10 @@ class ImageScrollScreen extends BaseScreen {
     e.preventDefault();
     e.stopPropagation();
 
-    const { ignoreScroll, actionOnScreenScrolled } = this.props;
+    const { ignoreScroll } = this.props;
     if (ignoreScroll) {
       return;
     }
-    actionOnScreenScrolled();
     Connector.current.updateCurrentPosition(scrollTop());
   }
 
@@ -137,7 +136,6 @@ ImageScrollScreen.propTypes = {
   actionUpdateContentError: PropTypes.func.isRequired,
   footerCalculations: FooterCalculationsType.isRequired,
   contentFooter: PropTypes.node,
-  actionOnScreenScrolled: PropTypes.func.isRequired,
   ignoreScroll: PropTypes.bool.isRequired,
 };
 
@@ -151,7 +149,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   ...readerBaseScreenMapDispatchToProps(dispatch),
-  actionOnScreenScrolled: () => dispatch(onScreenScrolled()),
 });
 
 export default connect(

@@ -31,7 +31,7 @@ class CurrentConnector extends BaseConnector {
   }
 
   updateCurrentPosition(offset) {
-    if (!CalculationsConnector.isCompleted()) return;
+    // if (!CalculationsConnector.isCompleted()) return;
 
     const { viewType } = selectReaderSetting(this.getState());
     const contentIndex = CalculationsConnector.getIndexAtOffset(offset);
@@ -42,6 +42,15 @@ class CurrentConnector extends BaseConnector {
     if (this.readerJsHelper) {
       location = this.readerJsHelper.getNodeLocationOfCurrentPage();
     }
+
+    console.log('updateCurrentPosition', {
+      contentIndex,
+      offset,
+      position,
+      viewType,
+      location,
+    });
+
     this.dispatch(updateCurrent({
       contentIndex,
       offset,

@@ -37,7 +37,8 @@ export default class BaseHtmlContent extends React.PureComponent {
         .then(() => onContentRendered(index, {
           scrollWidth: current.scrollWidth,
           scrollHeight: current.scrollHeight + contentFooterHeight,
-        }));
+        }))
+        .catch(e => console.error(e));
     }
     if (prevProps.isCalculated && !isCalculated) {
       this.listener = null;
@@ -76,10 +77,11 @@ export default class BaseHtmlContent extends React.PureComponent {
 
   renderContent(contentPrefix = '') {
     const { isContentLoaded, isContentOnError, content } = this.props.content;
-    const { contentFooter, className } = this.props;
+    const { contentFooter, className, isCalculated } = this.props;
     if (isContentLoaded) {
       return (
         <React.Fragment>
+          {!isCalculated && <div style={{ position: 'relative', textAlign: 'center' }}>Loading...</div>}
           <section
             ref={this.content}
             className={`content_container ${className}`}
@@ -90,9 +92,9 @@ export default class BaseHtmlContent extends React.PureComponent {
       );
     }
     if (isContentOnError) {
-      return <div>Error</div>; // TODO 에러 화면으로 변경
+      return <div style={{ position: 'relative', textAlign: 'center' }}>Error</div>; // TODO 에러 화면으로 변경
     }
-    return <div>Loading...</div>; // TODO 로딩 화면으로 변경
+    return <div style={{ position: 'relative', textAlign: 'center' }}>Loading...</div>; // TODO 로딩 화면으로 변경
   }
 
   render() {

@@ -52,15 +52,15 @@ class HtmlScrollScreen extends BaseScreen {
   }
 
   onScrollHandle() {
-    const { ignoreScroll, actionOnScreenScrolled } = this.props;
-    if (ignoreScroll) {
-      return;
-    }
-    actionOnScreenScrolled();
+    if (this.resizing) return;
+    const { ignoreScroll } = this.props;
+    if (ignoreScroll) return;
+    console.log('onScrollHandle');
     Connector.current.updateCurrentPosition(scrollTop());
   }
 
   calculate(index, nodeInfo) {
+    console.log(`setTotal: ${index}`, nodeInfo);
     const waitThenRun = window.requestAnimationFrame || window.setTimeout;
     waitThenRun(() => Connector.calculations.setTotal(index, nodeInfo.scrollHeight));
   }
@@ -70,12 +70,12 @@ class HtmlScrollScreen extends BaseScreen {
     setScrollTop(offset);
   }
 
-  needRender(content) {
+  needRender(contentIndex) {
     const { current } = this.props;
-    const calculated = Connector.calculations.isCalculated(content.index);
+    const calculated = Connector.calculations.isCalculated(contentIndex);
     const [top, height] = [current.offset, screenHeight()];
     const contentIndexesInScreen = Connector.calculations.getContentIndexesInOffsetRange(top - (height * 2), top + height + (height * 2));
-    return !calculated || contentIndexesInScreen.includes(content.index);
+    return calculated && contentIndexesInScreen.includes(contentIndex);
   }
 
   onFooterRendered(footerNode) {
@@ -106,12 +106,13 @@ class HtmlScrollScreen extends BaseScreen {
     const startOffset = Connector.calculations.getStartOffset(content.index);
     const isCurrentContent = current.contentIndex === content.index;
     const isLastContent = Connector.calculations.isLastContent(content.index);
+    const isCalculated = Connector.calculations.isCalculated(content.index);
     return (
       <ScrollHtmlContent
         className={isCurrentContent ? READERJS_CONTENT_WRAPPER : null}
         key={`${content.uri}:${content.index}`}
         content={content}
-        isCalculated={Connector.calculations.isCalculated(content.index)}
+        isCalculated={isCalculated}
         startOffset={startOffset}
         localOffset={isCurrentContent ? current.offset - startOffset : INVALID_OFFSET}
         onContentLoaded={this.onContentLoaded}
@@ -126,8 +127,9 @@ class HtmlScrollScreen extends BaseScreen {
   renderContents() {
     const { contents } = this.props;
     const StyledContent = getStyledContent(ContentFormat.HTML, ViewType.SCROLL);
+    const calculatedTarget = Connector.calculations.getCalculationTargetContents();
     return contents
-      .filter(content => this.needRender(content))
+      .filter(({ index }) => this.needRender(index) || calculatedTarget.includes(index))
       .map(content => this.renderContent(content, StyledContent));
   }
 }
@@ -145,7 +147,6 @@ HtmlScrollScreen.propTypes = {
   actionUpdateContentError: PropTypes.func.isRequired,
   footerCalculations: FooterCalculationsType.isRequired,
   contentFooter: PropTypes.node,
-  actionOnScreenScrolled: PropTypes.func.isRequired,
   ignoreScroll: PropTypes.bool.isRequired,
 };
 
@@ -158,7 +159,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   ...readerBaseScreenMapDispatchToProps(dispatch),
-  actionOnScreenScrolled: () => dispatch(onScreenScrolled()),
 });
 
 export default connect(
