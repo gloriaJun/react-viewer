@@ -45,7 +45,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/plugin-transform-classes": "^7.2.2",
     "@babel/plugin-transform-proto-to-assign": "^7.2.0",
-    "@babel/plugin-transform-react-jsx": "^7.0.0",
+    "@babel/plugin-transform-react-jsx": "^7.2.0",
     "@babel/preset-env": "^7.1.5",
     "@babel/preset-react": "^7.0.0",
     "@ridi/eslint-config": "^4.1.1",
