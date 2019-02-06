@@ -63,7 +63,7 @@
     "git-rev": "^0.2.1",
     "jest": "^23.6.0",
     "react": "^16.8.1",
-    "react-dom": "^16.7.0",
+    "react-dom": "^16.8.1",
     "react-redux": "^5.1.1",
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.1",
