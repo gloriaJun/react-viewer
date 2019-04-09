@@ -65,7 +65,7 @@
     "jest": "^23.6.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-redux": "^5.1.1",
+    "react-redux": "^7.0.1",
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.1",
     "redux-devtools-dispatch": "^2.2.1",
