@@ -56,7 +56,7 @@ declare module '@ridi/react-reader/EpubService' {
     export class EpubService {
         static init(props: EpubServiceProperties): void;
         static get(): EpubService;
-        static updateState({ settingState, currentState, calculationState }: {
+        static updateState({ settingState, currentState, calculationState, }: {
             settingState: EpubSettingState;
             currentState: EpubCurrentState;
             calculationState: EpubCalculationState;
@@ -243,9 +243,9 @@ declare module '@ridi/react-reader/contexts/epub/EpubCalculationContext' {
     }
     export enum EpubCalculationProperties {
         TOTAL_PAGE = "totalPage",
-        FULL_HEIGHT = "fullHeight",
-        FULL_WIDTH = "fullWidth",
+        TOTAL = "total",
         PAGE_UNIT = "pageUnit",
+        PAGE_CALCULATION_UNIT = "pageCalculationUnit",
         SPINES = "spines"
     }
     export type EpubCalculationAction = {
@@ -261,9 +261,9 @@ declare module '@ridi/react-reader/contexts/epub/EpubCalculationContext' {
     };
     export type EpubCalculationState = {
         [EpubCalculationProperties.TOTAL_PAGE]: number;
-        [EpubCalculationProperties.FULL_HEIGHT]: number;
-        [EpubCalculationProperties.FULL_WIDTH]: number;
+        [EpubCalculationProperties.TOTAL]: number;
         [EpubCalculationProperties.PAGE_UNIT]: number;
+        [EpubCalculationProperties.PAGE_CALCULATION_UNIT]: number;
         [EpubCalculationProperties.SPINES]: Array<SpineCalculationState>;
     };
     export const initialEpubCalculationState: EpubCalculationState;

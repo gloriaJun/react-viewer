@@ -18,8 +18,7 @@ export const SpineCalculationState = ow.object.exactShape({
 
 export const CalculationState = ow.object.exactShape({
   [EpubCalculationProperties.TOTAL_PAGE]: notNegativeNumberOptional,
-  [EpubCalculationProperties.FULL_HEIGHT]: notNegativeNumberOptional,
-  [EpubCalculationProperties.FULL_WIDTH]: notNegativeNumberOptional,
+  [EpubCalculationProperties.PAGE_CALCULATION_UNIT]: notNegativeNumberOptional,
   [EpubCalculationProperties.PAGE_UNIT]: notNegativeNumberOptional,
   [EpubCalculationProperties.SPINES]: ow.optional.array.ofType(SpineCalculationState),
 });
